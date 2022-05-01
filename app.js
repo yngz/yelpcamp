@@ -1,5 +1,6 @@
 const path = require('path');
 
+const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const express = require('express');
 const session = require('express-session');
@@ -38,6 +39,14 @@ const sessionConfig = {
   },
 };
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  // get the flash messages that were set in routes/*.js
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 // routes
 app.get('/', (req, res) => {
