@@ -1,5 +1,6 @@
 const express = require('express');
 
+const { isLoggedIn } = require('../middleware');
 const Campground = require('../models/campground');
 const { campgroundSchema } = require('../schemas');
 const catchAsync = require('../utils/catchAsync');
@@ -26,7 +27,7 @@ router.get('/', catchAsync(async (req, res) => {
 }));
 
 // needs to be defined before the :id route
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
   res.render('campgrounds/new');
 });
 
