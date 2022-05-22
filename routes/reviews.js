@@ -6,9 +6,18 @@ const catchAsync = require('../utils/catchAsync');
 
 const router = express.Router({ mergeParams: true }); // to get params :id from the prefix
 
-// reviews routes
-router.post('/', isLoggedIn, validateReview, catchAsync(reviews.createReview));
+router.post(
+  '/',
+  isLoggedIn,
+  validateReview,
+  catchAsync(reviews.createReview),
+);
 
-router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview));
+router.delete(
+  '/:reviewId',
+  isLoggedIn,
+  isReviewAuthor,
+  catchAsync(reviews.deleteReview),
+);
 
 module.exports = router;
