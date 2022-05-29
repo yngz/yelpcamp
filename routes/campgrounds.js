@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
 
 const campgrounds = require('../controllers/campgrounds');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
@@ -8,11 +11,15 @@ const router = express.Router();
 
 router.route('/')
   .get(catchAsync(campgrounds.index))
-  .post(
-    isLoggedIn,
-    validateCampground,
-    catchAsync(campgrounds.createCampground),
-  );
+  // .post(
+  //   isLoggedIn,
+  //   validateCampground,
+  //   catchAsync(campgrounds.createCampground),
+  // );
+  .post(upload.single('image'), (req, res) => {
+    console.log(req.file, req.body);
+    res.send('IT WORKED?!');
+  });
 
 // needs to be defined before the :id route
 router.get(
