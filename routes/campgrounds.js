@@ -14,7 +14,7 @@ router.route('/')
   .get(catchAsync(campgrounds.index))
   .post(
     isLoggedIn,
-    uploadParser.array('image'),
+    uploadParser.array('images'),
     validateCampground,
     // req.files can now be accessed as well as req.body
     catchAsync(campgrounds.createCampground),
