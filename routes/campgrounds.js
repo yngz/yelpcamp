@@ -32,6 +32,7 @@ router.route('/:id')
   .put(
     isLoggedIn,
     isAuthor,
+    uploadParser.array('images'),
     validateCampground,
     catchAsync(campgrounds.updateCampground),
   )
