@@ -12,15 +12,13 @@ const router = express.Router();
 
 router.route('/')
   .get(catchAsync(campgrounds.index))
-  // .post(
-  //   isLoggedIn,
-  //   validateCampground,
-  //   catchAsync(campgrounds.createCampground),
-  // );
-  .post(uploadParser.single('image'), (req, res) => {
-    console.log(req.file, req.body);
-    res.send('IT WORKED?!');
-  });
+  .post(
+    isLoggedIn,
+    uploadParser.array('image'),
+    validateCampground,
+    // req.files can now be accessed as well as req.body
+    catchAsync(campgrounds.createCampground),
+  );
 
 // needs to be defined before the :id route
 router.get(
