@@ -21,6 +21,7 @@ const seedDB = async () => {
     const randomOf1000 = Math.floor(Math.random() * 1000);
     const randomPrice = Math.floor(Math.random() * 30);
     const campground = new Campground({
+      // YOUR USER ID
       author: '62801805694678f5bb1c02e1',
       location: `${cities[randomOf1000].city}, ${cities[randomOf1000].state}`,
       title: `${sampleOne(descriptors)} ${sampleOne(places)}`,
@@ -36,6 +37,7 @@ const seedDB = async () => {
       ],
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ex temporibus praesentium numquam quibusdam. Ipsa libero, cum laborum magni nihil architecto vel recusandae voluptates blanditiis officia minima cupiditate labore corporis!',
       price: randomPrice,
+      geometry: { type: 'Point', coordinates: [139.7263785, 35.6652065] },
     });
     promises.push(campground.save());
   }
