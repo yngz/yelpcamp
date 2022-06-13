@@ -1,3 +1,4 @@
+/* eslint-disable */
 mapboxgl.accessToken = mapboxToken;
 campground_obj = JSON.parse(campground);
 
