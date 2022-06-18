@@ -27,17 +27,24 @@ const seedDB = async () => {
       title: `${sampleOne(descriptors)} ${sampleOne(places)}`,
       images: [
         {
-          url: 'https://res.cloudinary.com/dyqk86nct/image/upload/v1654454816/YelpCamp/ewvj17zjivaclazdfxyb.jpg',
-          filename: 'YelpCamp/ewvj17zjivaclazdfxyb',
-        },
-        {
           url: 'https://res.cloudinary.com/dyqk86nct/image/upload/v1654454816/YelpCamp/nzilktylkzy71sgnu3pn.jpg',
           filename: 'YelpCamp/nzilktylkzy71sgnu3pn',
+        },
+        {
+          url: 'https://res.cloudinary.com/dyqk86nct/image/upload/v1654454816/YelpCamp/ewvj17zjivaclazdfxyb.jpg',
+          filename: 'YelpCamp/ewvj17zjivaclazdfxyb',
         },
       ],
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ex temporibus praesentium numquam quibusdam. Ipsa libero, cum laborum magni nihil architecto vel recusandae voluptates blanditiis officia minima cupiditate labore corporis!',
       price: randomPrice,
-      geometry: { type: 'Point', coordinates: [139.7263785, 35.6652065] },
+      // geoJSON format
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          cities[randomOf1000].longitude,
+          cities[randomOf1000].latitude,
+        ],
+      },
     });
     promises.push(campground.save());
   }
