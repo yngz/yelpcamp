@@ -7,6 +7,7 @@ const path = require('path');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const express = require('express');
+const mongoSanitize = require('express-mongo-sanitize');
 const session = require('express-session');
 const helmet = require('helmet');
 const methodOverride = require('method-override');
@@ -36,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 
 const sessionConfig = {
   name: 'session', // simply making it different from the default
