@@ -79,6 +79,9 @@ map.on('load', () => {
     },
   });
 
+  // Add zoom and rotation controls to the map.
+  map.addControl(new mapboxgl.NavigationControl());
+
   // inspect a cluster on click
   map.on('click', 'clusters', (e) => {
     const features = map.queryRenderedFeatures(e.point, {
