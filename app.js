@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const path = require('path');
 
 const flash = require('connect-flash');
+const MongoStore = require('connect-mongo');
 const ejsMate = require('ejs-mate');
 const express = require('express');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -23,7 +24,9 @@ const ExpressError = require('./utils/ExpressError');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp')
+// const dbUrl = process.env.DB_URL;
+const dbUrl = 'mongodb://localhost:27017/yelpcamp';
+mongoose.connect(dbUrl)
   .then(
     () => console.log('db connection open'),
     (err) => console.log('db connection error:\n', err),
@@ -39,7 +42,20 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60, // avoid repeatedly re-saving the same data
+  crypto: {
+    secret: 'thishouldbeabettersecret',
+  },
+});
+
+store.on('error', (e) => {
+  console.log('SESSION STORE ERROR', e);
+});
+
 const sessionConfig = {
+  store,
   name: 'session', // simply making it different from the default
   secret: 'thishouldbeabettersecret',
   resave: false,
